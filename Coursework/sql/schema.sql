@@ -92,3 +92,57 @@ SELECT
 FROM parish p
 JOIN transaction_record t ON t.unit_type = 'Parish' AND t.unit_id = p.parish_id
 GROUP BY p.parish_id, p.name;
+
+-- Seed data for Church of Uganda MIS
+INSERT INTO diocese (name, province, address) VALUES
+('Kampala Diocese', 'Central', 'Kampala, Uganda');
+
+INSERT INTO archdeaconry (diocese_id, name, location) VALUES
+(1, 'Kampala North Archdeaconry', 'Kampala North'),
+(1, 'Kampala South Archdeaconry', 'Kampala South');
+
+INSERT INTO parish (archdeaconry_id, name, address) VALUES
+(1, 'St. Mark Parish', 'Kawempe Road'),
+(1, 'St. Stephen Parish', 'Makerere Hill'),
+(2, 'St. Paul Parish', 'Ntinda'),
+(2, 'St. Luke Parish', 'Bukoto');
+
+INSERT INTO subparish (parish_id, name, address) VALUES
+(1, 'St. Mark SubParish A', 'Kawempe East'),
+(1, 'St. Mark SubParish B', 'Kawempe West'),
+(2, 'St. Stephen SubParish A', 'Makerere East'),
+(3, 'St. Paul SubParish A', 'Ntinda Central');
+
+INSERT INTO household (subparish_id, household_name, head_name) VALUES
+(1, 'Kato Family', 'Robert Kato'),
+(1, 'Nansubuga Family', 'Grace Nansubuga'),
+(2, 'Mugisha Family', 'Peter Mugisha'),
+(3, 'Auma Family', 'Sarah Auma');
+
+INSERT INTO member (household_id, first_name, last_name, date_of_birth, gender, phone, email, membership_status) VALUES
+(1, 'John', 'Kato', '1990-05-12', 'Male', '0700123456', 'john.kato@example.com', 'Active'),
+(1, 'Mary', 'Kato', '1993-09-21', 'Female', '0700654321', 'mary.kato@example.com', 'Active'),
+(2, 'Peter', 'Mugisha', '1985-12-02', 'Male', '0700987654', 'peter.mugisha@example.com', 'Active'),
+(3, 'Sarah', 'Auma', '1998-03-16', 'Female', '0700765432', 'sarah.auma@example.com', 'Inactive');
+
+INSERT INTO sacrament (member_id, sacrament_type, sacrament_date, location, officiant) VALUES
+(1, 'Baptism', '1990-06-20', 'St. Mark Church', 'Revd. N. Kintu'),
+(1, 'Confirmation', '2005-07-10', 'St. Mark Church', 'Bishop D. L. Musoke'),
+(2, 'Baptism', '1993-10-10', 'St. Mark Church', 'Revd. A. Namukasa'),
+(3, 'Baptism', '1986-01-05', 'St. Mark Church', 'Revd. N. Kintu');
+
+INSERT INTO role (name, description) VALUES
+('Administrator', 'Full system access for administrators'),
+('Parish Priest', 'Access to parish and sacrament records'),
+('Treasurer', 'Access to financial reports and transaction entries');
+
+INSERT INTO "user" (username, password_hash, role_id, assigned_unit_type, assigned_unit_id, email) VALUES
+('admin', 'admin-hash', 1, 'Diocese', 1, 'admin@cou.org'),
+('priest1', 'priest1-hash', 2, 'Parish', 1, 'priest1@cou.org'),
+('treasurer1', 'treasurer1-hash', 3, 'Parish', 1, 'treasurer1@cou.org');
+
+INSERT INTO transaction_record (unit_type, unit_id, transaction_date, amount, transaction_type, description) VALUES
+('Parish', 1, '2026-03-01', 250000.00, 'Income', 'Sunday offertory'),
+('Parish', 1, '2026-03-05', 120000.00, 'Expense', 'Church utilities'),
+('Parish', 1, '2026-03-10', 50000.00, 'Income', 'Donation from members'),
+('Parish', 2, '2026-03-08', 180000.00, 'Income', 'Youth fundraiser');
