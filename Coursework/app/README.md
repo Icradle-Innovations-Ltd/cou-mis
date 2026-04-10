@@ -36,6 +36,11 @@ This is a functional prototype for the Church of Uganda MIS demonstrating:
 5. Optionally set `DEFAULT_HOUSEHOLD_ID=1` if your database has household seed data.
 6. Deploy the app from the `Coursework/app` folder, or use the Railway dashboard to connect the repository and start the service.
 
+## Hosted URLs
+
+- Public Railway host: `https://cou-mis-production.up.railway.app`
+- Custom domain (pending DNS): `https://cou.divinefishers.com`
+
 ## Next Steps
 
 - Add authentication and access control.

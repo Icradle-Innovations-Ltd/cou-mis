@@ -10,8 +10,13 @@ This folder contains the coursework deliverables for the CIS 7205 Advanced Datab
 - `presentation_outline.md` - slide structure for the project presentation.
 - `sql/schema.sql` - PostgreSQL database implementation scripts.
 - `sql/sample_queries.sql` - advanced SQL queries, joins, aggregates, views.
-- `app/README.md` - simple prototype architecture and setup instructions.
+- `app/README.md` - simple prototype architecture, setup instructions, and deployment host details.
 - `app/package.json` - Node.js prototype dependencies.
 - `app/server.js` - backend API endpoints for CRUD operations.
 - `app/public/index.html` - simple frontend UI for basic operations.
 - `app/public/script.js` - frontend JavaScript for interacting with the API.
+
+## Deployment hosts
+
+- Public Railway URL: `https://cou-mis-production.up.railway.app`
+- Custom domain (pending DNS / plan limit): `https://cou.divinefishers.com`

@@ -34,7 +34,12 @@ npm install
 railway up
 ```
 
-## 4. Database notes
+## 4. Hosted URLs
+
+- Public Railway host: `https://cou-mis-production.up.railway.app`
+- Custom domain (pending DNS update / plan limit): `https://cou.divinefishers.com`
+
+## 5. Database notes
 
 - Use `Coursework/sql/schema.sql` to initialize the PostgreSQL database.
 - Railway's PostgreSQL plugin can run the SQL manually or import via a migration tool.
