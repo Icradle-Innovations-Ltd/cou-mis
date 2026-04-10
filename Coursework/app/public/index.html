@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CoU-MIS Prototype</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; background: #f7f8fb; color: #222; }
+    h1, h2, h3 { color: #2b3e50; }
+    .grid { display: grid; gap: 24px; }
+    .panels { grid-template-columns: 1fr 1fr; }
+    .panel { background: #fff; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 18px; }
+    .full-width { grid-column: 1 / -1; }
+    .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 20px; }
+    .card { background: #eef3ff; border-radius: 8px; padding: 14px; }
+    label { display: block; margin-bottom: 4px; font-weight: bold; }
+    input, select, textarea { width: 100%; padding: 8px; margin-bottom: 12px; border: 1px solid #cbd5e1; border-radius: 4px; }
+    button { margin-right: 8px; padding: 10px 16px; border: none; border-radius: 4px; background: #2b6cb0; color: white; cursor: pointer; }
+    button.secondary { background: #718096; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { padding: 10px; border: 1px solid #e2e8f0; }
+    th { background: #edf2f7; }
+    small { color: #4a5568; }
+  </style>
+</head>
+<body>
+  <h1>Church of Uganda MIS Prototype</h1>
+  <p>This prototype demonstrates member, sacrament, and financial transaction management for the CoU-MIS project.</p>
+
+  <div class="summary">
+    <div class="card"><strong>Total Members</strong><div id="summary-members">0</div></div>
+    <div class="card"><strong>Total Sacraments</strong><div id="summary-sacraments">0</div></div>
+    <div class="card"><strong>Net Balance</strong><div id="summary-net">UGX 0.00</div></div>
+  </div>
+
+  <div class="grid panels">
+    <section class="panel">
+      <h2>Member Management</h2>
+      <form id="member-form">
+        <input type="hidden" id="member_id" />
+        <label for="first_name">First Name</label>
+        <input id="first_name" required placeholder="Enter first name" />
+        <label for="last_name">Last Name</label>
+        <input id="last_name" required placeholder="Enter last name" />
+        <label for="phone">Phone</label>
+        <input id="phone" placeholder="Enter phone number" />
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="Enter email address" />
+        <label for="membership_status">Status</label>
+        <select id="membership_status" title="Membership status">
+          <option>Active</option>
+          <option>Inactive</option>
+        </select>
+        <button type="submit">Save Member</button>
+        <button type="button" id="reset-member" class="secondary">Reset</button>
+      </form>
+      <h3>Member List</h3>
+      <table>
+        <thead><tr><th>ID</th><th>Name</th><th>Phone</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="member-table"></tbody>
+      </table>
+    </section>
+
+    <section class="panel">
+      <h2>Sacrament Records</h2>
+      <form id="sacrament-form">
+        <input type="hidden" id="sacrament_id" />
+        <label for="sacrament_member_id">Member</label>
+        <select id="sacrament_member_id" name="sacrament_member_id" title="Select member for sacrament" required>
+          <option value="" disabled selected>Select member</option>
+        </select>
+        <label for="sacrament_type">Sacrament Type</label>
+        <select id="sacrament_type" name="sacrament_type" title="Select sacrament type" required>
+          <option value="Baptism">Baptism</option>
+          <option value="Confirmation">Confirmation</option>
+          <option value="Marriage">Marriage</option>
+        </select>
+        <label for="sacrament_date">Date</label>
+        <input id="sacrament_date" type="date" required />
+        <label for="sacrament_location">Location</label>
+        <input id="sacrament_location" placeholder="Enter sacrament location" />
+        <label for="sacrament_officiant">Officiant</label>
+        <input id="sacrament_officiant" placeholder="Enter officiant name" />
+        <button type="submit">Save Sacrament</button>
+        <button type="button" id="reset-sacrament" class="secondary">Reset</button>
+      </form>
+      <h3>Sacrament List</h3>
+      <table>
+        <thead><tr><th>ID</th><th>Member</th><th>Type</th><th>Date</th><th>Actions</th></tr></thead>
+        <tbody id="sacrament-table"></tbody>
+      </table>
+    </section>
+
+    <section class="panel full-width">
+      <h2>Financial Transactions</h2>
+      <form id="transaction-form">
+        <input type="hidden" id="transaction_id" />
+        <label for="transaction_unit_type">Unit Type</label>
+        <select id="transaction_unit_type" title="Select transaction unit type">
+          <option>Diocese</option>
+          <option>Archdeaconry</option>
+          <option>Parish</option>
+          <option>SubParish</option>
+        </select>
+        <label for="transaction_unit_id">Unit ID</label>
+        <input id="transaction_unit_id" type="number" min="1" required placeholder="Enter unit ID" />
+        <label for="transaction_date">Date</label>
+        <input id="transaction_date" type="date" required />
+        <label for="transaction_amount">Amount (UGX)</label>
+        <input id="transaction_amount" type="number" step="0.01" min="0" required placeholder="Enter amount" />
+        <label for="transaction_type">Type</label>
+        <select id="transaction_type" title="Select transaction type">
+          <option>Income</option>
+          <option>Expense</option>
+        </select>
+        <label for="transaction_description">Description</label>
+        <textarea id="transaction_description" rows="2" placeholder="Enter transaction description"></textarea>
+        <button type="submit">Save Transaction</button>
+        <button type="button" id="reset-transaction" class="secondary">Reset</button>
+      </form>
+      <h3>Transaction List</h3>
+      <table>
+        <thead><tr><th>ID</th><th>Unit</th><th>Type</th><th>Amount</th><th>Date</th><th>Actions</th></tr></thead>
+        <tbody id="transaction-table"></tbody>
+      </table>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
